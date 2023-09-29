@@ -17,7 +17,7 @@ class SevenScreen extends StatelessWidget {
                 width: 42, // Желаемая ширина квадратной кнопки
                 height: 42, // Желаемая высота квадратной кнопки
                 decoration: BoxDecoration(
-                   // Цвет квадратной кнопки
+                  // Цвет квадратной кнопки
                   borderRadius:
                       BorderRadius.circular(10.0), // Радиус закругления углов
                 ),
@@ -34,7 +34,7 @@ class SevenScreen extends StatelessWidget {
               SizedBox(
                   width: 20), // Расстояние между квадратной кнопкой и текстом
               Text(
-                "Popular Menu",
+                "My E-Wallet",
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.black, // Цвет текста
@@ -43,501 +43,466 @@ class SevenScreen extends StatelessWidget {
               ),
             ],
           ),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    Icons.menu_rounded,
+                    color: Colors.black,
+                    size: 30,
+                  )
+                ],
+              ),
+            )
+          ],
         ),
         body: SafeArea(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-              const SizedBox(height: 36),
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 45,
-                      width: 290,
-                      child: TextField(
-                        style: const TextStyle(
-                          color: Color(0xff020202),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 0.5,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 28),
-                          filled: true,
-                          fillColor: Color.fromARGB(21, 186, 186, 186),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(23),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: "Search",
-                          hintStyle: const TextStyle(
-                              color: Color(0xffb2b2b2),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 0.5,
-                              decorationThickness: 6),
-                          suffixIcon: const Icon(
-                            Icons.search,
-                            color: Colors.black,
-                          ),
-                          prefixIconColor: Colors.black,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Color.fromRGBO(244, 63, 94, 0.10)),
-                      child: Center(
-                        child: Icon(
-                          Icons.menu,
-                          color: Color.fromRGBO(244, 63, 94, 0.70),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    width: 370,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(255, 224, 224, 224)
-                              .withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage('assets/Image.png'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Original Salad",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Lovy Food",
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                        Spacer(),
-                        Text(
-                          "\$8",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(244, 63, 93, 0.999),
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        )
-                      ],
-                    ),
-                  )),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    width: 370,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(255, 224, 224, 224)
-                              .withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage('assets/Image.png'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Original Salad",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Lovy Food",
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                        Spacer(),
-                        Text(
-                          "\$8",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(244, 63, 93, 0.999),
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        )
-                      ],
-                    ),
-                  )),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    width: 370,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(255, 224, 224, 224)
-                              .withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage('assets/Image.png'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Original Salad",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Lovy Food",
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                        Spacer(),
-                        Text(
-                          "\$8",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(244, 63, 93, 0.999),
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        )
-                      ],
-                    ),
-                  )),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    width: 370,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(255, 224, 224, 224)
-                              .withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage('assets/Image.png'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Original Salad",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Lovy Food",
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                        Spacer(),
-                        Text(
-                          "\$8",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(244, 63, 93, 0.999),
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        )
-                      ],
-                    ),
-                  )),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Container(
-                    width: 370,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(255, 224, 224, 224)
-                              .withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage('assets/Image.png'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Original Salad",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Lovy Food",
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                        Spacer(),
-                        Text(
-                          "\$8",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(244, 63, 93, 0.999),
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        )
-                      ],
-                    ),
-                  )),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: EdgeInsets.all(24),
                 child: Container(
-                  height: 91,
-                  width: 360,
+                  height: 220,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color:
-                            Color.fromARGB(255, 224, 224, 224).withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 2,
-                        offset: Offset(0, 3), // changes position of shadow
+                      color: Colors.black87,
+                      borderRadius: BorderRadius.circular(35)),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                        child: Row(
+                          children: [
+                            Text("Ivan Karpenko",
+                                style: TextStyle(
+                                    fontSize: 23,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500)),
+                            Spacer(),
+                            Text(
+                              "VISA",
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.card_giftcard,
+                              color: Colors.white,
+                              size: 35,
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                        child: Row(
+                          children: [
+                            Text("**** **** **** 3629",
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 25, left: 20, right: 20),
+                        child: Row(
+                          children: [
+                            Text("Your balance",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 25, left: 20, right: 20),
+                        child: Row(
+                          children: [
+                            Text("\$9,379",
+                                style: TextStyle(
+                                    fontSize: 34,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700)),
+                            Spacer(),
+                            Container(
+                              width: 110,
+                              height: 35,
+                              child: ElevatedButton(
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.download,
+                                      size: 20,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      'Top Up',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Color.fromARGB(255, 205, 253, 254),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        30.0), // Здесь задайте радиус закругления
+                                  ),
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 43,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color.fromRGBO(255, 68, 99, 0.163),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 24, right: 24, top: 5),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Transaction History",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Spacer(),
+                        Text("See All",
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.w700))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/Image.png'),
+                              ),
+                            )),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Lawson Chair",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Dec 15, 2024 | 10:00 AM",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                        Spacer(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("120\$",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Orders",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/Image.png'),
+                              ),
+                            )),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Lawson Chair",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Dec 15, 2024 | 10:00 AM",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                        Spacer(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("120\$",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Orders",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/Image.png'),
+                              ),
+                            )),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Lawson Chair",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Dec 15, 2024 | 10:00 AM",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                        Spacer(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("120\$",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Orders",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/Image.png'),
+                              ),
+                            )),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Lawson Chair",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Dec 15, 2024 | 10:00 AM",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                        Spacer(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("120\$",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Orders",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/Image.png'),
+                              ),
+                            )),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Lawson Chair",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Dec 15, 2024 | 10:00 AM",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                        Spacer(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("120\$",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Orders",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Column(
                           children: [
                             Icon(
                               Icons.home,
-                              color: Color.fromRGBO(244, 63, 93, 0.999),
+                              size: 35,
                             ),
-                            SizedBox(
-                              width: 7,
-                            ),
-                            Text(
-                              "Home",
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  color: Color.fromRGBO(244, 63, 93, 0.999),
-                                  fontWeight: FontWeight.w600),
-                            ),
+                            Text("Home")
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        width: 45,
-                      ),
-                      Icon(
-                        Icons.shop,
-                        color: Color.fromRGBO(244, 63, 93, 0.999),
-                      ),
-                       SizedBox(
-                        width: 45,
-                      ),
-                      Icon(
-                        Icons.message,
-                        color: Color.fromRGBO(244, 63, 93, 0.999),
-                      ),
-                       SizedBox(
-                        width: 45,
-                      ),
-                      Icon(
-                        Icons.person,
-                        color: Color.fromRGBO(244, 63, 93, 0.999),
-                      ),
-                    ],
-                  ),
+                        SizedBox(
+                          width: 33,
+                        ),
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.shop_sharp,
+                              size: 35,
+                            ),
+                            Text("Cart")
+                          ],
+                        ),
+                          SizedBox(
+                          width: 33,
+                        ),
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.card_travel,
+                              size: 35,
+                            ),
+                            Text("Orders")
+                          ],
+                        ),
+                          SizedBox(
+                          width: 33,
+                        ),
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.wallet,
+                              size: 35,
+                            ),
+                            Text("Wallet")
+                          ],
+                        ),
+                          SizedBox(
+                          width: 33,
+                        ),
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.person,
+                              size: 35,
+                            ),
+                            Text("Profile")
+                          ],
+                        )
+                      ],
+                    )
+                  ],
                 ),
               )
             ])));

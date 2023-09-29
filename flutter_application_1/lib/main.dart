@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fivenScreen.dart';
 import 'package:flutter_application_1/fourthScreen.dart';
+import 'package:flutter_application_1/lastScreen.dart';
 import 'package:flutter_application_1/secnodScreen.dart';
 import 'package:flutter_application_1/sevenScreen.dart';
 import 'package:flutter_application_1/sixScreen.dart';
@@ -28,7 +29,8 @@ class MainApp extends StatelessWidget {
           FourthScreen(),
           FivenScreen(),
           SixScreen(),
-          SevenScreen()
+          SevenScreen(),
+          LastScreen()
         ],
       ),
     );
