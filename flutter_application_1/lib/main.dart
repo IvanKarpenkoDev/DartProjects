@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/fivenScreen.dart';
 import 'package:flutter_application_1/fourthScreen.dart';
 import 'package:flutter_application_1/lastScreen.dart';
+import 'package:flutter_application_1/new.dart';
 import 'package:flutter_application_1/secnodScreen.dart';
 import 'package:flutter_application_1/sevenScreen.dart';
 import 'package:flutter_application_1/sixScreen.dart';
@@ -22,15 +23,16 @@ class MainApp extends StatelessWidget {
       // home: FivenScreen(),
       home: PageView(
         scrollDirection: Axis.vertical,
-        children: const [
-          FirstPage(),
-          SecondScreen(),
-          ThirdScreen(),
-          FourthScreen(),
-          FivenScreen(),
-          SixScreen(),
-          SevenScreen(),
-          LastScreen()
+        children:  [
+          // FirstPage(),
+          // SecondScreen(),
+          // ThirdScreen(),
+          // FourthScreen(),
+          // FivenScreen(),
+          // SixScreen(),
+          // SevenScreen(),
+          // LastScreen()
+       CalcApp1()
         ],
       ),
     );
