@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   math_expressions: ^2.4.0
+  provider: ^4.3.2 
 
 dev_dependencies:
   flutter_test:

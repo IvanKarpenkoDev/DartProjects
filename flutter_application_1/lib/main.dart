@@ -8,6 +8,8 @@ import 'package:flutter_application_1/sevenScreen.dart';
 import 'package:flutter_application_1/sixScreen.dart';
 import 'package:flutter_application_1/thirdScreen.dart';
 
+import 'listView.dart';
+
 void main() {
   runApp(const MainApp());
 }
@@ -23,19 +25,28 @@ class MainApp extends StatelessWidget {
       // home: FivenScreen(),
       home: PageView(
         scrollDirection: Axis.vertical,
-        children:  [
-          // FirstPage(),
-          // SecondScreen(),
-          // ThirdScreen(),
-          // FourthScreen(),
-          // FivenScreen(),
-          // SixScreen(),
-          // SevenScreen(),
-          // LastScreen()
-       CalcApp1()
+        children: [
+          FirstPage(),
+          SecondScreen(),
+          ThirdScreen(),
+          FourthScreen(),
+          FivenScreen(),
+          SixScreen(),
+          SevenScreen(),
+          LastScreen(),
+          CalcApp1()
         ],
       ),
     );
+    // return MaterialApp(
+    //   onGenerateRoute: (settings) {
+    //     if (settings.name == '/listView') {
+    //       return MaterialPageRoute(builder: (context) => ListViewScreen());
+    //     }
+    //     // Другие маршруты
+    //   },
+    //   // Другие настройки приложения
+    // );
   }
 }
 
