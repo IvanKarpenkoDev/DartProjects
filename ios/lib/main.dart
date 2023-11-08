@@ -1,68 +1,140 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+import 'AddItemScreen.dart';
+import 'DeleteItemScreen.dart';
+import 'EditItemScreen.dart';
+import 'ListViewScreen.dart';
+
+Future<void> main() async {
+  await initApp(); // Initialize the app
+}
+
+Future<void> initApp() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ItemAdapter()); // Register your ItemAdapter
+
+  final prefs = await SharedPreferences.getInstance();
+  final isLoggedIn = prefs.getString('username') == 'admin' && prefs.getString('password') == 'admin';
+
   runApp(
     MultiProvider(
       providers: [
-      
         ChangeNotifierProvider(
           create: (context) => ItemListProvider(),
           lazy: false,
         ),
-
-        
-        ValueListenableProvider<int>.value(
-          value: MyValueNotifier(42), 
+        Provider<MyItemNotifier>(
+          create: (context) => MyItemNotifier(
+              Item(title: 'Default Name', description: 'Default Description')),
         ),
       ],
-      
       child: MaterialApp(
-        initialRoute: '/',
         theme: ThemeData.dark(),
-        onGenerateRoute: (settings) {
-          if (settings.name == '/') {
-            return MaterialPageRoute(
-              builder: (context) => ListViewScreen(),
-            );
-          } else if (settings.name == '/add') {
-            return MaterialPageRoute(
-              builder: (context) => AddItemScreen(),
-            );
-          } else if (settings.name == '/edit') {
-            if (settings.arguments is Item) {
-              final item = settings.arguments as Item;
-              return MaterialPageRoute(
-                builder: (context) => EditItemScreen(item),
-              );
-            }
-          } else if (settings.name == '/delete') {
-            if (settings.arguments is Item) {
-              final item = settings.arguments as Item;
-              return MaterialPageRoute(
-                builder: (context) => DeleteItemScreen(item),
-              );
-            }
-          }
-          return null;
+        initialRoute: isLoggedIn ? '/' : '/login', // Check if user is logged in
+        routes: {
+          '/': (context) => ListViewScreen(),
+          '/login': (context) => LoginScreen(),
+          '/add': (context) => AddItemScreen(),
+          '/edit': (context) {
+            final item = ModalRoute.of(context)!.settings.arguments as Item;
+            return EditItemScreen(item);
+          },
+          '/delete': (context) {
+            final item = ModalRoute.of(context)!.settings.arguments as Item;
+            return DeleteItemScreen(item);
+          },
         },
       ),
     ),
   );
 }
-
-class MyValueNotifier extends ValueNotifier<int> {
-  MyValueNotifier(int value) : super(value);
-
-  // Дополнительные методы или свойства, если необходимо
+class MyItemNotifier extends ValueNotifier<Item> {
+  MyItemNotifier(Item value) : super(value);
 }
 
+class LoginScreen extends StatelessWidget {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void login(BuildContext context) async {
+    final username = usernameController.text;
+    final password = passwordController.text;
+
+    if (username == 'admin' && password == 'admin') {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('username', username);
+      await prefs.setString('password', password);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ListViewScreen()));
+    } else {
+      // Show an error message or handle incorrect login credentials
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+     
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: usernameController,
+              decoration: InputDecoration(labelText: 'Username'),
+            ),
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(labelText: 'Password'),
+              obscureText: true,
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () => login(context),
+              child: Text('Login'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class ItemAdapter extends TypeAdapter<Item> {
+  @override
+  final int typeId = 1; // Use the same type ID you used in your Item class
+
+  @override
+  Item read(BinaryReader reader) {
+    return Item(
+      title: reader.readString(),
+      description: reader.readString(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Item obj) {
+    writer.writeString(obj.title);
+    writer.writeString(obj.description);
+  }
+}
+
+@HiveType(typeId: 1)
 class Item {
+  @HiveField(0)
   String title;
+
+  @HiveField(1)
   String description;
 
   Item({required this.title, required this.description});
 }
+
 class ListItemWidget extends StatelessWidget {
   final Item item;
 
@@ -72,11 +144,11 @@ class ListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromARGB(255, 99, 99, 99)), // Обводка
-        borderRadius: BorderRadius.circular(10.0), // Закругленные углы
-        color: Color.fromARGB(255, 63, 63, 63), // Цвет заднего фона
+        border: Border.all(color: Color.fromARGB(255, 99, 99, 99)),
+        borderRadius: BorderRadius.circular(10.0),
+        color: Color.fromARGB(255, 63, 63, 63),
       ),
-      margin: EdgeInsets.all(8.0), // Внешний отступ
+      margin: EdgeInsets.all(8.0),
       child: ListTile(
         key: ValueKey(item),
         title: Text(item.title),
@@ -111,14 +183,32 @@ class ListItemWidget extends StatelessWidget {
   }
 }
 
-
 class ItemListProvider with ChangeNotifier {
-  List<Item> _items = [];
+  late Box<Item> _itemsBox;
+  List<MyItemNotifier> _items = [];
 
-  List<Item> get items => _items;
+  List<MyItemNotifier> get items => _items;
 
-  void addItem(String title, String description) {
-    _items.add(Item(title: title, description: description));
+  ItemListProvider() {
+    initHive();
+  }
+
+  Future<void> initHive() async {
+    await Hive.initFlutter();
+    _itemsBox = await Hive.openBox<Item>('itemsBox');
+    loadDataFromHive();
+  }
+
+  void loadDataFromHive() {
+    _items = _itemsBox.values.map((item) => MyItemNotifier(item)).toList();
+    notifyListeners();
+  }
+
+  Future<void> addItem(String title, String description) async {
+    final newItem = Item(title: title, description: description);
+    final myItem = MyItemNotifier(newItem);
+    await _itemsBox.add(newItem);
+    _items.add(myItem);
     notifyListeners();
   }
 
@@ -128,195 +218,34 @@ class ItemListProvider with ChangeNotifier {
     }
     final item = _items.removeAt(oldIndex);
     _items.insert(newIndex, item);
+    _itemsBox.putAll(Map.fromIterable(_items,
+        key: (item) => _items.indexOf(item), value: (item) => item));
     notifyListeners();
   }
 
-  void editItem(Item item, String newTitle, String newDescription) {
-    final index = _items.indexOf(item);
-    if (index != -1) {
-      _items[index].title = newTitle;
-      _items[index].description = newDescription;
-      notifyListeners();
-    }
+void editItem(Item item, String newTitle, String newDescription) {
+  final index = _items.indexWhere((notifier) => notifier.value == item);
+  if (index != -1) {
+    final updatedItem = item
+      ..title = newTitle
+      ..description = newDescription;
+    final updatedNotifier = MyItemNotifier(updatedItem);
+    _items[index] = updatedNotifier;
+    _itemsBox.putAt(index, updatedItem); // Update the item in Hive at the specified index
+    notifyListeners();
   }
+}
+
 
   void deleteItem(Item item) {
-    _items.remove(item);
-    notifyListeners();
-  }
-}
+    final notifier = _items.firstWhere((notifier) => notifier.value == item);
+    final index = _items.indexOf(notifier);
 
-class ListViewScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('ListView')),
-      body: Consumer<ItemListProvider>(
-        builder: (context, itemList, child) {
-          return ReorderableListView(
-            onReorder: (oldIndex, newIndex) {
-              itemList.reorderItems(oldIndex, newIndex);
-            },
-            children: itemList.items.asMap().entries.map((entry) {
-              final index = entry.key;
-              final item = entry.value;
-
-              return ReorderableDelayedDragStartListener(
-                index: index,
-                key: ValueKey(item),
-                child: ListItemWidget(item),
-              );
-            }).toList(),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/add');
-        },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class AddItemScreen extends StatelessWidget {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Добавление')),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              controller: _titleController,
-              decoration: InputDecoration(labelText: 'Заголовок'),
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Описание'),
-            ),
-            SizedBox(height: 32.0),
-            GestureDetector(
-              onTap: () {
-                final String title = _titleController.text;
-                final String description = _descriptionController.text;
-                final itemList =
-                    Provider.of<ItemListProvider>(context, listen: false);
-                itemList.addItem(title, description);
-                Navigator.pop(context);
-              },
-              child: Container(
-                color: Colors.blue,
-                padding: EdgeInsets.all(10.0),
-                child: Center(
-                  child:
-                      Text('Добавление', style: TextStyle(color: Colors.white)),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class EditItemScreen extends StatelessWidget {
-  final Item item;
-
-  EditItemScreen(this.item);
-
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    _titleController.text = item.title;
-    _descriptionController.text = item.description;
-
-    return Scaffold(
-      appBar: AppBar(title: Text('Изменение')),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              controller: _titleController,
-              decoration: InputDecoration(labelText: 'Заголовок'),
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Описание'),
-            ),
-            SizedBox(height: 32.0),
-            GestureDetector(
-              onTap: () {
-                final String title = _titleController.text;
-                final String description = _descriptionController.text;
-                final itemList =
-                    Provider.of<ItemListProvider>(context, listen: false);
-                itemList.editItem(item, title, description);
-                Navigator.pop(context);
-              },
-              child: Container(
-                color: Colors.blue,
-                padding: EdgeInsets.all(10.0),
-                child: Center(
-                  child: Text('Сохранить изменения',
-                      style: TextStyle(color: Colors.white)),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DeleteItemScreen extends StatelessWidget {
-  final Item item;
-
-  DeleteItemScreen(this.item);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Удаление')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Вы уверены что хотите удалить item?'),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                final itemList =
-                    Provider.of<ItemListProvider>(context, listen: false);
-                itemList
-                    .deleteItem(item); // Добавьте метод для удаления элемента
-                Navigator.pop(context);
-              },
-              child: Text('Удалить'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Отмена'),
-            ),
-          ],
-        ),
-      ),
-    );
+    if (index != -1) {
+      _items.removeAt(index);
+      _itemsBox
+          .deleteAt(index); // Delete the item from Hive at the specified index
+      notifyListeners();
+    }
   }
 }
