@@ -17,7 +17,7 @@ class ListViewScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('ListView'),
         leading: IconButton(
-          icon: Icon(Icons.exit_to_app_outlined),
+          icon: Icon(Icons.exit_to_app_outlined, color: Color.fromARGB(255, 255, 102, 102),),
           onPressed: () async => {
            exitApp(),
             Navigator.pushNamed(context, '/login')
@@ -44,7 +44,7 @@ class ListViewScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 237, 237, 237),
+        backgroundColor: Color.fromARGB(255, 255, 102, 102),
         onPressed: () {
           Navigator.pushNamed(context, '/add');
         },

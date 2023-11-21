@@ -18,7 +18,7 @@ Future<void> initApp() async {
   Hive.registerAdapter(ItemAdapter()); // Register your ItemAdapter
 
   final prefs = await SharedPreferences.getInstance();
-  final isLoggedIn = prefs.getString('username') == 'admin' && prefs.getString('password') == 'admin';
+
 
   runApp(
     MultiProvider(
@@ -34,10 +34,9 @@ Future<void> initApp() async {
       ],
       child: MaterialApp(
         theme: ThemeData.dark(),
-        initialRoute: isLoggedIn ? '/' : '/login', // Check if user is logged in
+        initialRoute:  '/', // Check if user is logged in
         routes: {
           '/': (context) => ListViewScreen(),
-          '/login': (context) => LoginScreen(),
           '/add': (context) => AddItemScreen(),
           '/edit': (context) {
             final item = ModalRoute.of(context)!.settings.arguments as Item;
@@ -56,53 +55,7 @@ class MyItemNotifier extends ValueNotifier<Item> {
   MyItemNotifier(Item value) : super(value);
 }
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
-  void login(BuildContext context) async {
-    final username = usernameController.text;
-    final password = passwordController.text;
-
-    if (username == 'admin' && password == 'admin') {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('username', username);
-      await prefs.setString('password', password);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ListViewScreen()));
-    } else {
-      // Show an error message or handle incorrect login credentials
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-     
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () => login(context),
-              child: Text('Login'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 
 class ItemAdapter extends TypeAdapter<Item> {
